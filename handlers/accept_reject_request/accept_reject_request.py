@@ -1,6 +1,7 @@
 from aiogram import types, Dispatcher
 from couch_bot1.create_bot import bot, db
 import logging
+from .keyboards import accept_reject_callback
 
 
 async def share_contacts_with_guest(call: types.CallbackQuery):
@@ -18,4 +19,4 @@ async def share_contacts_with_guest(call: types.CallbackQuery):
 
 
 def register_handlers_share_contacts(dp: Dispatcher):
-    dp.register_callback_query_handler(share_contacts_with_guest)
+    dp.register_callback_query_handler(share_contacts_with_guest, accept_reject_callback.filter(answer='share'), state='*')

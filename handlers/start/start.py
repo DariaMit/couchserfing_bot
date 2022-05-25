@@ -4,6 +4,10 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from couch_bot1.create_bot import bot, db
 from .keyboards import language_choice, main_menu_rus, change_invitation_rus
 
+
+class FSMStart(StatesGroup):
+    pass
+
 class FSMUsage(StatesGroup):
     language = State()
     vk_link = State()
@@ -54,5 +58,5 @@ async def show_main_menu(message: types.Message, state: FSMContext):
 
 
 def register_handlers_start(dp: Dispatcher):
-    dp.register_message_handler(start, commands=['start'])
+    dp.register_message_handler(start, commands=['start'], state='*')
     dp.register_message_handler(show_main_menu, state=FSMUsage.menu)

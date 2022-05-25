@@ -14,18 +14,24 @@ async def on_whom(message: types.Message, state: FSMContext):
     if 'vk.com' in message.text:
         db_column = 'user_id_VK'
         link = message.text.strip('vk.com/')
+        print(1)
     elif '@' in message.text:
         db_column = 'username_TG'
         link = message.text.strip('@')
+        print(2)
     else:
+        print(3)
         await bot.send_message(message.from_user.id, 'Введите действительную ссылку в верном формате')
-        #как вот тут сделать брейк!!!! словит ошибку же.
+        return
     async with state.proxy() as data:
+        print(4)
+        print(db_column, link)
         data['host_id_db'] = db.get_host_for_review(db_column, link)
     if not data.get('host_id_db'):
+        print(5)
         await bot.send_message(message.from_user.id, 'Такого пользователя нет в базе данных')
-        await state.finish()
     else:
+        print(6)
         await bot.send_message(message.from_user.id, 'Напишите ваш отзыв')
         await FSMUsage.write_review_text.set()
 
@@ -51,7 +57,7 @@ async def leave_mark(message: types.Message, state: FSMContext):
 
 
 def register_handlers_leave_review(dp: Dispatcher):
-    dp.register_message_handler(leave_review, commands=['leavereview'])
+    dp.register_message_handler(leave_review, commands=['leavereview'], state='*')
     dp.register_message_handler(on_whom, state=FSMUsage.leave_review)
     dp.register_message_handler(write_review_text, state=FSMUsage.write_review_text)
     dp.register_message_handler(leave_mark, state=FSMUsage.leave_mark)

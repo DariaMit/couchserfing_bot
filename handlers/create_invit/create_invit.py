@@ -47,7 +47,7 @@ async def write_invitation_text(message: types.Message, state: FSMContext):
 
 
 def register_handlers_create_invit(dp: Dispatcher):
-    dp.register_message_handler(create_invitation, commands=['createinvitation'])
+    dp.register_message_handler(create_invitation, commands=['createinvitation'], state='*')
     dp.register_message_handler(change_invit, state=FSMUsage.already_host)
     dp.register_message_handler(host_city, state=FSMUsage.host_city)
     dp.register_message_handler(write_invitation_text, state=FSMUsage.write_inv_text)
