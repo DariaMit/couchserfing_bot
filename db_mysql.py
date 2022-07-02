@@ -84,33 +84,7 @@ class Database:
                 print(id)
                 return id
             else:
-                print('а хули нет')
                 return False
-
-
-
-
-    # def get_host_for_review(self, column, link):
-    #     print(column)
-    #     print(link)
-    #     with self.connection.cursor() as cur:
-    #         res = cur.execute(f"SELECT id FROM all_users WHERE %(column)s = %(link)s",
-    #                           {'column': column, 'link': link})
-    #         print('res')
-    #         print(res)
-    #         cur.execute("SELECT id FROM all_users WHERE %(column)s = %(link)s",
-    #                     {'column': column, '"link"': link})
-    #         id = cur.fetchone()[0]
-    #         print('id из бд функции')
-    #         print(id)
-    #         if bool(res):
-    #             id = cur.fetchone()[0]
-    #             print('id из бд функции')
-    #             print(id)
-    #             return id
-    #         else:
-    #             print('а хули нет')
-    #             return False
 
     def get_host_by_city(self, city):
         '''Возвращает кортеж из всех объявлений в искомом городеб содержащий айди, имя и текст объявления'''
